@@ -18,7 +18,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:50',
             'full_name'=>'required|max:50',
-            'birthdate'=>'required/date',
+            'birthdate'=>'required|date',
             'email' => 'required|string|email|unique:users',
             'fcm_token'=>'required',
             'phone' => 'required|string|digits:11|unique:profiles',
