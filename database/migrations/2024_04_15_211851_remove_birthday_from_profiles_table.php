@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            //
+            $table->dropColumn('birthdate');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('profiles', function (Blueprint $table) {
-        $table->dropColumn('birthdate');
+            $table->date('birthday')->nullable();
         });
     }
 };
