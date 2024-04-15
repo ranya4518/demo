@@ -26,7 +26,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 422);
+            return response()->json(['errors' => $validator->errors()], 422);
         }else{
         $user =User::create([
         'name' => $request->name,
@@ -121,4 +121,5 @@ public function changePassword(Request $request) {
 
     return response()->json(['message'=>'Şifreniz başarıyla değiştirildi.']);
 }
+
 }
