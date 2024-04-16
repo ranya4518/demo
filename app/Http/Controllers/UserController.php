@@ -19,7 +19,7 @@ class UserController extends Controller
             'name' => 'required|max:50',
             'full_name'=>'required|max:50',
             'email' => 'required|string|email|unique:users',
-            'fcm_token'=>'required',
+            'fcm_token'=>'nullablephp ',
             'phone' => 'required|string|digits:11|unique:profiles',
             'password' => 'required|min:8|string'
         ]);
@@ -51,7 +51,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|string',
             'password' => 'required|min:8|string',
-            'fcm_token' => 'required',
+            'fcm_token' => 'nullable',
         ]);
     
         if ($validator->fails()) {

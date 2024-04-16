@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->id();
             $table->string('full_name');
-            $table->date('birthdate');
             $table->text('fcm_token')->nullable();
             $table->string('phone')->unique();
             $table->timestamps();
