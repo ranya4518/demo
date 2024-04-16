@@ -18,7 +18,7 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->date('birthdate');
-            $table->text('fcm_token');
+            $table->text('fcm_token')->nullable();
             $table->string('phone')->unique();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
