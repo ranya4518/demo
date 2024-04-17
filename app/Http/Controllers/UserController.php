@@ -81,6 +81,8 @@ class UserController extends Controller
         $profile->save();
     
         return response([
+            'user'=>$user,
+            'profile'=>$profile,
             'message' => 'User logged in successfully',
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
