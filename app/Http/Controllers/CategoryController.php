@@ -16,6 +16,6 @@ class CategoryController extends Controller
     // bire categorye ait tüm ürünleri elde edilir
     public function show($id){
     $category=Category::with('products')->find($id);
-    return response()->json($category);
+    return response()->json(['categories'=>$category ]);
     }
 }
