@@ -49,7 +49,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/show-profile',[ProfileController::class,'show']);
 });
 Route::post('/register',[UserController::class,'register']);
-Route::post('/login',[UserController::class,'login']);
+Route::post('/login',[UserController::class,'login'])->name('login');
 //product controller
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/product/{id}',[ProductController::class,'show']);

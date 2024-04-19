@@ -28,6 +28,7 @@ return response()->json(['products'=>$product]);
     'stock'=>$stokDurumu
           ]);
    }
+   // sipariş oluşturma
    public function addToCart($productId, $quantity)
    {
        // Ürünü veritabanından bul
