@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function(){
     //  wishlist controller 
     Route::post('/product/{productId}/favorite',[WishlistController::class,'Favorite']);
     Route::delete('/product/{productId}/favorite',[WishlistController::class,'removFavorite']);
-    Route::get('/wishlist',[WishlistController::class,'showlist']);
+    Route::post('/wishlist',[WishlistController::class,'showlist']);
     //order controller
     Route::get('/myorders',[OrderController::class,'userOrders']);
     //address
