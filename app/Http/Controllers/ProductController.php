@@ -25,7 +25,7 @@ return response()->json(['products'=>$product]);
     'product' => $product,
     'average_rating' => $averageRating,
     'review_count' => $reviewCount,
-    'stock'=>$stokDurumu
+    'stock_satete'=>$stokDurumu
           ]);
    }
    // sipariş oluşturma
