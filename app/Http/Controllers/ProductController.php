@@ -16,18 +16,16 @@ public function index(){
 $product=Product::all();
 return response()->json(['products'=>$product]);
 }
- public function show($id){
-    $product=Product::with('product__reviews')->find($id);
-    $stokDurumu = $product->stock < 10 ? 'Tükenmek üzere' : 'Stok var';
-    $averageRating=$product->product__reviews->avg('rating');
-    $reviewCount = $product->product__reviews->count();
-     return response()->json([
-    'product' => $product,
-    'average_rating' => $averageRating,
-    'review_count' => $reviewCount,
-    'stock_status'=>$stokDurumu
-          ]);
-   }
+public function show($id) {
+  $product = Product::find($id);
+  $stokDurumu = $product->stock < 10 ? 'Tükenmek üzere' : 'Stok var';
+
+  return response()->json([
+      'product' => $product,
+      'stock_status' => $stokDurumu
+  ]);
+}
+
    // sipariş oluşturma
    public function addToCart($productId, $quantity)
    {

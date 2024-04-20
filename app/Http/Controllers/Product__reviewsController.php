@@ -24,6 +24,25 @@ public function store(Request $request){
      // Başarılı bir yanıt döndürme
      return response()->json(['message' => 'Ürün değerlendirmesi başarıyla oluşturuldu'], 201);
  }
+ 
+ public function getProductReviews($productId) {
+    $reviews = Product_Reviews::where('product_id', $productId)->get();
+
+    // Değerlendirme sayısı
+    $reviewCount = $reviews->count();
+
+    // Ortalama değerlendirme puanı
+    $averageRating = $reviews->avg('rating');
+
+    return response()->json([
+        'reviews' => $reviews,
+        'review_count' => $reviewCount,
+        'average_rating' => $averageRating
+    ]);
+}
+
+
+
 }
 
 //$product=Product::with('product__reviews')->find($id);

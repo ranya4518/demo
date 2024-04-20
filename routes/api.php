@@ -50,6 +50,9 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login'])->name('login');
+// ürün değerlendirmeleri
+Route::get('/product/{productId}/reviews',[Product__reviewsController::class,'getProductReviews']);
+
 //product controller
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/product/{id}',[ProductController::class,'show']);
