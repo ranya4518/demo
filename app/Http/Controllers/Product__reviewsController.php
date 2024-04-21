@@ -26,7 +26,7 @@ public function store(Request $request){
  }
  
  public function getProductReviews($productId) {
-    $reviews = Product_Reviews::where('product_id', $productId)->get();
+    $reviews = Product_Reviews::with('user')->where('product_id', $productId)->get();
 
     // Değerlendirme sayısı
     $reviewCount = $reviews->count();
@@ -34,12 +34,29 @@ public function store(Request $request){
     // Ortalama değerlendirme puanı
     $averageRating = $reviews->avg('rating');
 
+    // Kullanıcı adlarını değerlendirme nesneleriyle birlikte gönder
+    $reviewData = [];
+    foreach ($reviews as $review) {
+        $reviewData[] = [
+            'id' => $review->id,
+            'product_id' => $review->product_id,
+            'user_id' => $review->user_id,
+            'review' => $review->review,
+            'rating' => $review->rating,
+            'created_at' => $review->created_at,
+            'updated_at' => $review->updated_at,
+            'username' => $review->user->name // Kullanıcı adını al
+        ];
+    }
+
     return response()->json([
-        'reviews' => $reviews,
+        'reviews' => $reviewData,
         'review_count' => $reviewCount,
-        'average_rating' => $averageRating
+        'average_rating' => $averageRating,
     ]);
 }
+
+
 
 
 
