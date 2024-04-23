@@ -68,16 +68,17 @@ private function calculateOrderTotalPrice($orderId) {
  }
 
  public function getOrderDetails($orderId) {
-    $order = Order::with('orderDetails')->find($orderId);
+    
+    $order = Order::with(['orderDetails.product', 'orderDetails.product'])->find($orderId);
     
     if (!$order) {
         return response()->json(['error' => 'Sipariş bulunamadı'], 404);
     }
     
-    $orderDetails = $order->orderDetails;
-    
-    return response()->json($orderDetails);
+   
+    return response()->json(['details'=>$order]);
 }
+
 
 }
 

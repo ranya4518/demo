@@ -61,7 +61,7 @@ Route::get('/search/{query}',[ProductController::class,'search']);
 //order
 Route::get('/orders',[Order_detailsController::class,'index']);
 //order details
-Route::get('/details/{id}',[Order_detailsController::class,'orderdetails']);
+Route::get('/details/{id}',[OrderController::class,'getOrderDetails']);
 // category
 Route::get('/categories',[CategoryController::class,'index']);
 Route::get('/category/{id}',[CategoryController::class,'show']);
