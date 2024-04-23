@@ -55,7 +55,7 @@ class WishlistController extends Controller
            Wishlist::where('user_id', $user->id)->where('product_id',$productId)->delete();
            return response()->json(['message'=>'ürün sepetinizden silind']);
              }else{
-             return response()->json(['error'=>'bir hata oluştu']);
+             return response()->json(['message'=>'bir hata oluştu']);
              }
            }
 }
