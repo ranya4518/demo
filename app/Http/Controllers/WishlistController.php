@@ -49,7 +49,7 @@ class WishlistController extends Controller
 
    
     
-        public function removFavorite(Request $request,$productId){
+        public function removFavorite($productId){
             $user=Auth::user();   
              if($user){
            Wishlist::where('user_id', $user->id)->where('product_id',$productId)->delete();
