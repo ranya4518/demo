@@ -108,7 +108,7 @@ public function updateEmail(Request $request){
     ]);
 
     // Eğer eski e-posta adresi doğruysa, güncelleme işlemine izin ver
-    if ($user->email === $request->old_email) {
+    if ($user->email === $request->current_email) {
         $user->email = $request->email;
         /** @var \App\Models\User $user **/
         $user->save();
