@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/create-order', [OrderController::class, 'createOrder']);
     // profile controller
     Route::put('/update-profile',[ProfileController::class,'updateprofile']);
-    Route::get('/show-profile',[ProfileController::class,'show']);
+    Route::get('/show-profile',[UserController::class,'showUserWithProfile']);
 });
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login'])->name('login');

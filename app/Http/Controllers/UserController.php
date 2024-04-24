@@ -108,12 +108,19 @@ public function updateEmail(Request $request){
      $user->save();
      return response()->json(['message'=>'email addresiniz güncellendi']);
 }
-public function changePassword(Request $request) {
-    $request->validate([
-        'password' => 'required|min:8|confirmed',
-    ]);
-
-    $user = Auth::user();
+    public function changePassword(Request $request) {
+        $request->validate([
+            'current_password' => 'required', // Mevcut şifre alınması zorunludur
+            'password' => 'required|min:8|confirmed', // Yeni şifre en az 8 karakterden oluşmalı ve teyit edilmeli
+        ]);
+    
+        // Mevcut oturumda giriş yapmış olan kullanıcı alınıyor
+        $user = Auth::user();
+    
+        // Mevcut şifre doğrulanıyor
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json(['message' => 'Mevcut şifre hatalı.'], 400);
+        }
     $user->password = bcrypt($request->password);
     /** @var \App\Models\User $user **/
     
@@ -121,5 +128,23 @@ public function changePassword(Request $request) {
 
     return response()->json(['message'=>'Şifreniz başarıyla değiştirildi.']);
 }
+
+public function showUserWithProfile() {
+    // Mevcut oturumda giriş yapmış olan kullanıcıyı alıyoruz
+    $user = auth()->user();
+
+    // Kullanıcı varsa, profiliyle birlikte döndürüyoruz
+    if ($user) {
+        // Kullanıcının ilişkili profil bilgisini direkt olarak çağırıyoruz
+        $profile = $user->profile;
+
+        return response()->json(['user' => $user]);
+
+    } else {
+        return response()->json(['error' => 'Kullanıcı oturumu bulunamadı'], 404);
+    }
+}
+
+
 
 }
