@@ -100,14 +100,25 @@ if ($request->user()) {
 
 public function updateEmail(Request $request){
     $user = Auth::user(); 
+
+    // İsteği doğrulama
     $request->validate([
         'email' => 'required|email|unique:users',
+        'old_email' => 'required|email|exists:users,email', // Eski e-posta adresini doğrulama
     ]);
-    $user->email = $request->email;
-    /** @var \App\Models\User $user **/
-     $user->save();
-     return response()->json(['message'=>'email addresiniz güncellendi']);
+
+    // Eğer eski e-posta adresi doğruysa, güncelleme işlemine izin ver
+    if ($user->email === $request->old_email) {
+        $user->email = $request->email;
+        /** @var \App\Models\User $user **/
+        $user->save();
+        return response()->json(['message'=>'E-posta adresiniz güncellendi']);
+    } else {
+        // Eğer eski e-posta adresi doğru değilse, hata mesajı döndür
+        return response()->json(['error'=>'Eski e-posta adresi doğrulanamadı'], 400);
+    }
 }
+
     public function changePassword(Request $request) {
         $request->validate([
             'current_password' => 'required', // Mevcut şifre alınması zorunludur
