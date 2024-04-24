@@ -104,7 +104,7 @@ public function updateEmail(Request $request){
     // İsteği doğrulama
     $request->validate([
         'email' => 'required|email|unique:users',
-        'old_email' => 'required|email|exists:users,email', // Eski e-posta adresini doğrulama
+        'current_email' => 'required|email|exists:users,email', // Eski e-posta adresini doğrulama
     ]);
 
     // Eğer eski e-posta adresi doğruysa, güncelleme işlemine izin ver
