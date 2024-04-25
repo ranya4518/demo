@@ -10,7 +10,7 @@ class Product__reviewsController extends Controller
 {
 public function store(Request $request){
     $request->validate([
-        'rating' => 'required|integer|between:1,5',
+        'rating' => 'required|decimal|between:1,5',
         'review' => 'nullable|string|max:255',
     ]);
      // Yeni bir ürün değerlendirmesi oluşturma
