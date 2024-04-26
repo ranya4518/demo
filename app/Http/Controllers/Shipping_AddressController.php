@@ -55,7 +55,7 @@ public function addAddress(Request $request)
 public function MyAddress(){
  $user = Auth::user();
  $myaddress=Shipping_Addresses::where('user_id',$user->id)->get();
- return response()->json($myaddress);
+ return response()->json(['myaddress'=>$myaddress]);
 }
 public function updateAddress(Request $request,$id){
     if (Auth::check()) {
