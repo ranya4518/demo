@@ -15,9 +15,11 @@ public function createOrder(Request $request){
     // flutter api ile gelen ürün listesi sepet sayfasından body ile json formatında
     //aldık ve $products içinde kaydettik artık buradan ürünlere dongu ile erişebiliriz
     $products = $request->input('products');
+    $addressId = $request->input('addressId');
     // bir order oluşturduk
     $order = new Order;
     $order->user_id = $userId;
+    $order->address_id = $addressId;
     $order->total = 0; // Toplam fiyatı daha sonra hesaplayacağız
     $order->save();
     // Stok güncelleme işlemi
