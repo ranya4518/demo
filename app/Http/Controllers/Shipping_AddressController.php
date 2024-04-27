@@ -80,5 +80,9 @@ public function updateAddress(Request $request,$id){
      return response()->json(['message' =>'İlk olarak giriş yapmanız gerekiyor'], 401);
     }  
   }
+  public function show($id){
+  $address=Shipping_Addresses::find($id);
+  return response()->json(['address'=> $address]);
+  }
 }
 

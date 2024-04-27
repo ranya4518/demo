@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('/update-profile',[ProfileController::class,'updateprofile']);
     Route::get('/show-profile',[UserController::class,'showUserWithProfile']);
 });
+// address details
+Route::get('/address/{id}',[Shipping_AddressController::class,'show']);
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login'])->name('login');
 // ürün değerlendirmeleri
