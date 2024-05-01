@@ -39,7 +39,8 @@ class WishlistController extends Controller
             $wishlist->user_id = $user->id;
             $wishlist->product_id = $product->id;
             $wishlist->save();
-    
+            $product->is_favorite = true;
+            $product->save();
             return response()->json(['message' => 'Ürün sepetinize eklendi']);
         } else {
             return response()->json(['error' => 'Bir hata oluştu']);
@@ -53,6 +54,11 @@ class WishlistController extends Controller
             $user=Auth::user();   
              if($user){
            Wishlist::where('user_id', $user->id)->where('product_id',$productId)->delete();
+           $product = Product::find($productId);
+           if ($product) {
+               $product->is_favorite = false;
+               $product->save();
+           }
            return response()->json(['message'=>'ürün sepetinizden silind']);
              }else{
              return response()->json(['message'=>'bir hata oluştu']);
