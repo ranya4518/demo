@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpKernel\Profiler\Profiler;
 
 class UserController extends Controller
 {
@@ -119,27 +118,34 @@ public function updateEmail(Request $request){
     }
 }
 
-    public function changePassword(Request $request) {
-        $request->validate([
-            'current_password' => 'required', // Mevcut şifre alınması zorunludur
-            'password' => 'required|min:8|confirmed', // Yeni şifre en az 8 karakterden oluşmalı ve teyit edilmeli
-        ]);
-    
-        // Mevcut oturumda giriş yapmış olan kullanıcı alınıyor
-        $user = Auth::user();
-    
-        // Mevcut şifre doğrulanıyor
-        if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json(['message' => 'Mevcut şifre hatalı.'], 400);
-        }
+public function changePassword(Request $request) {
+    $request->validate([
+        'current_password' => 'required', // Mevcut şifre alınması zorunludur
+        'password' => 'required|min:8|confirmed', // Yeni şifre en az 8 karakterden oluşmalı ve teyit edilmeli
+        'password_confirmation' => 'required|same:password',
+    ]);
+
+    // Mevcut oturumda giriş yapmış olan kullanıcı alınıyor
+    $user = Auth::user();
+
+    // Mevcut şifre doğrulanıyor
+    if (!Hash::check($request->current_password, $user->password)) {
+        return response()->json(['message' => 'Mevcut şifre hatalı.'], 400);
+    }
+
+    // Yeni şifre ve tekrarı doğrulanıyor
+    if ($request->password!== $request->password_confirmation) {
+        return response()->json(['message' => 'Yeni şifre ve tekrarı eşleşmiyor.'], 400);
+    }
+
+    // Şifre güncelleniyor
     $user->password = bcrypt($request->password);
     /** @var \App\Models\User $user **/
-    
+
     $user->save();
 
-    return response()->json(['message'=>'Şifreniz başarıyla değiştirildi.']);
+    return response()->json(['message' => 'Şifreniz başarıyla değiştirildi.']);
 }
-
 public function showUserWithProfile() {
     // Mevcut oturumda giriş yapmış olan kullanıcıyı alıyoruz
     $user = auth()->user();
