@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {  
 public function index(){
-$product=Product::paginate(10);
+$product=Product::all();
 return response()->json(['products'=>$product]);
 }
 public function show($id) {
