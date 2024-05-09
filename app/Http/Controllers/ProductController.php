@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Auth;
 class ProductController extends Controller
 {  
 public function index(){
-$product=Product::all();
-return response()->json(['products'=>$product]);
+  $products = Product::with(['product__reviews' => function ($query) {
+    $query->selectRaw('product_id, AVG(rating) as avg_rating')->groupBy('product_id');
+}])->get();
+
+return response()->json(['products' => $products]);
 }
 public function show($id) {
   $product = Product::find($id);
